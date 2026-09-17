@@ -13,10 +13,10 @@ class DampedSimulator {
   constructor(simCanvasId, geoCanvasId) {
     this.simCanvas = document.getElementById(simCanvasId);
     this.geoCanvas = document.getElementById(geoCanvasId);
-    if (!this.simCanvas || !this.geoCanvas) return;
+    if (!this.simCanvas && !this.geoCanvas) return;
 
-    this.simCtx = this.simCanvas.getContext('2d');
-    this.geoCtx = this.geoCanvas.getContext('2d');
+    this.simCtx = this.simCanvas?.getContext('2d') || null;
+    this.geoCtx = this.geoCanvas?.getContext('2d') || null;
 
     // Parámetros físicos
     this.params = {
@@ -43,7 +43,9 @@ class DampedSimulator {
         this.initCanvasSizes();
         this.render();
       });
-      [this.simCanvas, this.geoCanvas].forEach(canvas => this.resizeObserver.observe(canvas));
+      [this.simCanvas, this.geoCanvas]
+        .filter(Boolean)
+        .forEach(canvas => this.resizeObserver.observe(canvas));
     }
     this.recalculateDerived();
     this.lastTimestamp = performance.now();
@@ -55,22 +57,25 @@ class DampedSimulator {
     const dpr = window.devicePixelRatio || 1;
 
     // Sim Canvas
-    const rectSim = this.simCanvas.getBoundingClientRect();
-    this.simWidth = rectSim.width || this.simCanvas.clientWidth || 360;
-    this.simHeight = rectSim.height || this.simCanvas.clientHeight || 210;
-    this.simCanvas.width = Math.floor(this.simWidth * dpr);
-    this.simCanvas.height = Math.floor(this.simHeight * dpr);
-    this.simCtx.resetTransform();
-    this.simCtx.scale(dpr, dpr);
+    if (this.simCanvas && this.simCtx) {
+      const rectSim = this.simCanvas.getBoundingClientRect();
+      this.simWidth = rectSim.width || this.simCanvas.clientWidth || 360;
+      this.simHeight = rectSim.height || this.simCanvas.clientHeight || 210;
+      this.simCanvas.width = Math.floor(this.simWidth * dpr);
+      this.simCanvas.height = Math.floor(this.simHeight * dpr);
+      this.simCtx.resetTransform();
+      this.simCtx.scale(dpr, dpr);
+    }
 
-    // Geo Canvas
-    const rectGeo = this.geoCanvas.getBoundingClientRect();
-    this.geoWidth = rectGeo.width || this.geoCanvas.clientWidth || 360;
-    this.geoHeight = rectGeo.height || this.geoCanvas.clientHeight || 210;
-    this.geoCanvas.width = Math.floor(this.geoWidth * dpr);
-    this.geoCanvas.height = Math.floor(this.geoHeight * dpr);
-    this.geoCtx.resetTransform();
-    this.geoCtx.scale(dpr, dpr);
+    if (this.geoCanvas && this.geoCtx) {
+      const rectGeo = this.geoCanvas.getBoundingClientRect();
+      this.geoWidth = rectGeo.width || this.geoCanvas.clientWidth || 360;
+      this.geoHeight = rectGeo.height || this.geoCanvas.clientHeight || 210;
+      this.geoCanvas.width = Math.floor(this.geoWidth * dpr);
+      this.geoCanvas.height = Math.floor(this.geoHeight * dpr);
+      this.geoCtx.resetTransform();
+      this.geoCtx.scale(dpr, dpr);
+    }
   }
 
   recalculateDerived() {
@@ -198,6 +203,7 @@ class DampedSimulator {
   }
 
   renderSim() {
+    if (!this.simCtx) return;
     const ctx = this.simCtx;
     const w = this.simWidth;
     const h = this.simHeight;
@@ -280,6 +286,7 @@ class DampedSimulator {
   }
 
   renderGeo() {
+    if (!this.geoCtx) return;
     const ctx = this.geoCtx;
     const w = this.geoWidth;
     const h = this.geoHeight;

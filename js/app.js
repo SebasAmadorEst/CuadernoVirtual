@@ -30,7 +30,7 @@ function compactLongPages() {
     'Unidad I: Fundamentos Oscilatorios', 1,
     '<i class="fas fa-list-ol" style="color:#0284c7"></i> Indice y reseña historica',
     'Conceptos iniciales y evolucion de la teoria oscilatoria',
-    `<div class="concept-card"><h4><i class="fas fa-bookmark"></i> Contenidos</h4><p class="text-paragraph">El cuaderno estudia el M.A.S., el pendulo simple, las oscilaciones amortiguadas, la resonancia y sus aplicaciones.</p><p class="text-paragraph">Galileo estudio el isocronismo del pendulo; Hooke establecio la fuerza restauradora $F=-kx$; Newton formalizo la dinamica y Fourier explico la descomposicion de las vibraciones periodicas.</p></div>
+    `<div class="concept-card"><h4><i class="fas fa-bookmark"></i> Contenidos</h4><p class="text-paragraph">El cuaderno estudia el M.A.S., el pendulo simple, las oscilaciones amortiguadas, la resonancia y sus aplicaciones.</p><div class="contents-index-grid"><div class="contents-section-label">Inicio y fundamentos</div><a href="#" data-goto-page="1">Pág. 1: Índice y reseña histórica</a><a href="#" data-goto-page="2">Pág. 2: Línea de tiempo histórica</a><a href="#" data-goto-page="3">Pág. 3: Mapa mental conceptual</a><a href="#" data-goto-page="4">Pág. 4: Definiciones y fundamentos</a><a href="#" data-goto-page="5">Pág. 5: Cinemática y deducciones</a><a href="#" data-goto-page="6">Pág. 6: Laboratorio y GeoGebra</a><a href="#" data-goto-page="7">Pág. 7: Ejercicios resueltos</a><a href="#" data-goto-page="8">Pág. 8: Glosario y referencias</a><a href="#" data-goto-page="9">Pág. 9: Fundamentos del péndulo</a><a href="#" data-goto-page="10">Pág. 10: Simulador del péndulo</a><a href="#" data-goto-page="11">Pág. 11: Gráficas angulares</a><a href="#" data-goto-page="12">Pág. 12: Energía y ejercicios</a><a href="#" data-goto-page="13">Pág. 13: Oscilador amortiguado</a><a href="#" data-goto-page="14">Pág. 14: Simulador y gráfica amortiguada</a><a href="#" data-goto-page="15">Pág. 15: Regímenes y resonancia</a><a href="#" data-goto-page="16">Pág. 16: Energía disipada y potencia</a><a href="#" data-goto-page="17">Pág. 17: Tabla comparativa</a><a href="#" data-goto-page="18">Pág. 18: Síntesis final y créditos</a></div><p class="text-paragraph">Galileo estudio el isocronismo del pendulo; Hooke establecio la fuerza restauradora $F=-kx$; Newton formalizo la dinamica y Fourier explico la descomposicion de las vibraciones periodicas.</p></div>
      <div class="concept-card"><h4><i class="fas fa-landmark"></i> Idea central</h4><p class="text-paragraph">Un sistema oscila alrededor de un equilibrio estable cuando existe una fuerza o torque restaurador. El M.A.S. es el modelo lineal fundamental para describirlo.</p></div>`
   ));
 
@@ -136,14 +136,14 @@ function compactLongPages() {
     'Laboratorio Computacional III: Amortiguado', 14,
     '<i class="fas fa-sliders-h" style="color:#10b981"></i> Simulador amortiguado',
     'Compara los regimenes subamortiguado, critico y sobreamortiguado',
-    `<div class="simulator-box"><canvas id="dampSimCanvas" class="sim-viewport-canvas" style="height:170px"></canvas><div class="sim-controls-grid"><div class="sim-control-item"><label>Amortiguamiento $b$</label><input type="range" id="dampSliderB" min=".05" max="15" step=".05" value=".6"></div><div class="sim-control-item"><label>Constante $k$</label><input type="range" id="dampSliderK" min="1" max="25" step=".5" value="9"></div><div class="sim-control-item"><label>Frecuencia impulsora</label><input type="range" id="dampSliderWd" min=".5" max="8" step=".1" value="3"></div></div><div class="sim-action-bar"><button class="sim-btn" id="dampBtnPlay">Pausar</button><button class="sim-btn secondary" id="dampBtnReset">Reiniciar</button></div></div>`
+    `<div class="simulator-box"><canvas id="dampSimCanvas" class="sim-viewport-canvas" style="height:170px"></canvas><div class="sim-controls-grid"><div class="sim-control-item"><label>Amortiguamiento $b$</label><input type="range" id="dampSliderB" min=".05" max="15" step=".05" value=".6"></div><div class="sim-control-item"><label>Constante $k$</label><input type="range" id="dampSliderK" min="1" max="25" step=".5" value="9"></div><div class="sim-control-item"><label>Frecuencia impulsora</label><input type="range" id="dampSliderWd" min=".5" max="8" step=".1" value="3"></div></div><div class="sim-action-bar"><button class="sim-btn" id="dampBtnPlay">Pausar</button><button class="sim-btn secondary" id="dampBtnReset">Reiniciar</button></div></div><div class="geogebra-container"><div class="geogebra-header"><span class="geogebra-title">$x(t)$ y $Ae^{-\gamma t}$</span></div><canvas id="dampGeoCanvas" class="geogebra-canvas" style="height:290px"></canvas></div>`
   ));
 
   replacePage('page-15', pageTemplate(
     'Laboratorio Computacional III: Grafica', 15,
     '<i class="fas fa-chart-area" style="color:#10b981"></i> Envolvente y resonancia',
     'Curva de posicion y respuesta forzada',
-    `<div class="geogebra-container"><div class="geogebra-header"><span class="geogebra-title">$x(t)$ y $Ae^{-\gamma t}$</span></div><canvas id="dampGeoCanvas" class="geogebra-canvas" style="height:180px"></canvas></div><div class="concept-card"><h4>Resonancia</h4><p class="text-paragraph">La amplitud crece cuando la frecuencia externa se aproxima a la frecuencia natural. El amortiguamiento limita el maximo.</p><div class="math-equation-content">$$\omega_{res}=\sqrt{\omega_0^2-2\gamma^2}$$</div></div>`
+    `<div class="concept-card" style="border-left-color:#10b981"><h4><i class="fas fa-wave-square"></i> Lectura de la gráfica trasladada</h4><p class="text-paragraph">La gráfica interactiva se encuentra en la página 14 junto al simulador para relacionar directamente la trayectoria $x(t)$ con los parámetros $m$, $b$, $k$ y $\omega_d$. La amplitud decrece por el factor $e^{-\gamma t}$ y la frecuencia amortiguada es $\omega'=\sqrt{\omega_0^2-\gamma^2}$.</p></div><div class="science-table-container"><div class="table-caption">Regímenes del oscilador amortiguado</div><table class="science-table"><thead><tr><th>Régimen</th><th>Condición</th><th>Comportamiento</th><th>Respuesta</th></tr></thead><tbody><tr><td><strong>Subamortiguado</strong></td><td>$\gamma<\omega_0$</td><td>Oscila con amplitud decreciente</td><td>$Ae^{-\gamma t}\cos(\omega't)$</td></tr><tr><td><strong>Crítico</strong></td><td>$\gamma=\omega_0$</td><td>Regresa rápido sin oscilar</td><td>$(C_1+C_2t)e^{-\gamma t}$</td></tr><tr><td><strong>Sobreamortiguado</strong></td><td>$\gamma>\omega_0$</td><td>Regresa lentamente sin oscilar</td><td>Dos exponentes reales</td></tr></tbody></table></div><div class="concept-card" style="border-left-color:#ef4444;background:#fff5f5"><h4 style="color:#b91c1c"><i class="fas fa-broadcast-tower"></i> Resonancia: amplitud estacionaria</h4><p class="text-paragraph" style="color:#7f1d1d">Cuando el oscilador es forzado por $F(t)=F_0\cos(\omega_d t)$, la amplitud depende de:</p><div class="math-equation-content">$$A(\omega_d)=\frac{F_0/m}{\sqrt{(\omega_0^2-\omega_d^2)^2+(2\gamma\omega_d)^2}}$$</div><p class="text-paragraph" style="color:#7f1d1d">Un amortiguamiento menor produce un pico más alto y estrecho; la energía sigue $E(t)=E_0e^{-2\gamma t}$.</p></div><div class="exercise-solver-card"><div class="exercise-header"><h3><i class="fas fa-calculator" style="color:#10b981"></i> Ejemplo de interpretación</h3></div><div class="exercise-enunciado"><strong>Situación:</strong> Si $\gamma=0.50\text{ s}^{-1}$ y $A_0=0.20\text{ m}$, calcula la amplitud después de $t=4.0\text{ s}$.</div><div class="step-formulas"><div class="step-formulas-title">Fórmula</div><div>$$A(t)=A_0e^{-\gamma t}$$</div></div><div class="step-despejes"><div class="step-despejes-title">Resultado</div><div class="despeje-item">$$A(4)=0.20e^{-0.50(4)}=\mathbf{0.027\text{ m}}$$</div></div><div class="step-validacion"><div class="step-validacion-title">Interpretación</div><p>La amplitud queda en cerca del $13.5\%$ de su valor inicial.</p></div></div>`
   ));
 
   replacePage('page-18', pageTemplate(
@@ -237,13 +237,36 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!pageSelector) return;
     const isTwoPage = isTwoPageMode();
     pageSelector.innerHTML = '';
+    const pageLabels = [
+      'Índice y reseña histórica',
+      'Línea de tiempo histórica',
+      'Mapa mental conceptual',
+      'Definiciones y fundamentos',
+      'Cinemática y deducciones',
+      'Laboratorio y GeoGebra',
+      'Ejercicios resueltos',
+      'Glosario y referencias',
+      'Fundamentos del péndulo',
+      'Simulador del péndulo',
+      'Gráficas angulares',
+      'Energía y ejercicios',
+      'Oscilador amortiguado',
+      'Simulador y gráfica amortiguada',
+      'Regímenes y resonancia',
+      'Energía disipada y potencia',
+      'Tabla comparativa',
+      'Síntesis final y créditos'
+    ];
 
     if (isTwoPage) {
       const options = [{ value: '0', text: 'Portada Oficial (Cerrado)' }];
       for (let spread = 1; spread <= TOTAL_SPREADS; spread += 1) {
         const first = (spread * 2) - 1;
         const last = Math.min(spread * 2, TOTAL_CONTENT_PAGES);
-        options.push({ value: String(spread), text: `Págs. ${first}-${last}: Cuaderno de Física` });
+        const firstLabel = pageLabels[first - 1] || 'Contenido';
+        const lastLabel = pageLabels[last - 1] || firstLabel;
+        const sectionLabel = firstLabel === lastLabel ? firstLabel : `${firstLabel} · ${lastLabel}`;
+        options.push({ value: String(spread), text: `Págs. ${first}-${last}: ${sectionLabel}` });
       }
       options.forEach(opt => {
         const el = document.createElement('option');
@@ -255,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       const options = [{ value: '0', text: 'Portada Oficial (Cubierta)' }];
       for (let page = 1; page <= TOTAL_CONTENT_PAGES; page += 1) {
-        options.push({ value: String(page), text: `Pág. ${page}: Cuaderno de Física` });
+        options.push({ value: String(page), text: `Pág. ${page}: ${pageLabels[page - 1] || 'Contenido'}` });
       }
       options.forEach(opt => {
         const el = document.createElement('option');
@@ -310,7 +333,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Refrescar canvases del amortiguado (págs. 14 y 15)
     if (hasActiveSourcePage('page-14') || hasActiveSourcePage('page-15')) {
       setTimeout(() => {
-        if (dampedSimulator) dampedSimulator.initCanvasSizes();
+        if (dampedSimulator) {
+          dampedSimulator.initCanvasSizes();
+          dampedSimulator.render();
+        }
       }, 100);
     }
   }
@@ -378,11 +404,13 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     renderMathOnPages(activeElements);
     refreshLabCanvas();
+    document.querySelectorAll('.quiz-panel').forEach(resetQuiz);
   }
 
   function renderSinglePage(pageIndex) {
     if (pageIndex < 0) pageIndex = 0;
     if (pageIndex > TOTAL_CONTENT_PAGES) pageIndex = TOTAL_CONTENT_PAGES;
+    const turnDirection = pageIndex > currentPage ? 'next' : pageIndex < currentPage ? 'prev' : null;
     currentPage = pageIndex;
     currentSpread = currentPage === 0 ? 0 : Math.ceil(currentPage / 2);
 
@@ -403,6 +431,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeEl = currentPage === 0 ? pageCover : contentPages[currentPage - 1];
     if (activeEl) {
       activeEl.classList.add('active');
+      if (turnDirection) {
+        notebookStage?.classList.add(`turn-${turnDirection}`);
+        activeEl.classList.add(`page-turn-${turnDirection}`);
+      }
     }
 
     if (btnPrev) btnPrev.disabled = currentPage === 0;
@@ -418,6 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (activeEl) renderMathOnPages([activeEl]);
     refreshLabCanvas();
+    document.querySelectorAll('.quiz-panel').forEach(resetQuiz);
   }
 
   function navigateNext() {
@@ -862,6 +895,96 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  const exerciseGroups = document.querySelectorAll('.exercise-group');
+
+  exerciseGroups.forEach(group => {
+    const exerciseSelector = group.querySelector('.exercise-selector');
+    const exerciseCards = group.querySelectorAll('.exercise-card');
+
+    if (!exerciseSelector || !exerciseCards.length) return;
+
+    const showExercise = (value) => {
+      exerciseCards.forEach(card => {
+        card.hidden = card.getAttribute('data-exercise') !== value;
+      });
+    };
+
+    exerciseSelector.addEventListener('change', (event) => {
+      showExercise(event.target.value);
+    });
+
+    showExercise(exerciseSelector.value);
+  });
+
+  const quizPanels = document.querySelectorAll('.quiz-panel');
+
+  const resetQuiz = (panel) => {
+    if (!panel) return;
+    panel.querySelectorAll('input[type="radio"]').forEach(input => {
+      input.checked = false;
+    });
+    panel.querySelectorAll('.quiz-question').forEach(question => {
+      question.classList.remove('is-correct', 'is-wrong');
+      const feedback = question.querySelector('.quiz-feedback');
+      if (feedback) feedback.textContent = '';
+    });
+
+    const resultBox = panel.querySelector('.quiz-result');
+    if (resultBox) {
+      resultBox.textContent = 'Resultado: 0/5 correctas. Intenta otra vez.';
+      resultBox.classList.remove('visible');
+    }
+  };
+
+  quizPanels.forEach(panel => {
+    const questions = panel.querySelectorAll('.quiz-question');
+
+    const updateResult = () => {
+      let correct = 0;
+      questions.forEach(question => {
+        const answer = question.dataset.answer;
+        const selected = question.querySelector('input[type="radio"]:checked');
+        const feedback = question.querySelector('.quiz-feedback');
+        if (!selected) {
+          question.classList.remove('is-correct', 'is-wrong');
+          if (feedback) feedback.textContent = '';
+          return;
+        }
+
+        const isCorrect = selected.value === answer;
+        question.classList.toggle('is-correct', isCorrect);
+        question.classList.toggle('is-wrong', !isCorrect);
+
+        if (feedback) {
+          feedback.textContent = isCorrect
+            ? '✅ Correcto.'
+            : `❌ Incorrecto. La respuesta correcta es ${answer.toUpperCase()}.`;
+        }
+
+        if (isCorrect) correct += 1;
+      });
+
+      const resultBox = panel.querySelector('.quiz-result');
+      if (resultBox) {
+        resultBox.textContent = `Resultado: ${correct}/5 correctas.`;
+        resultBox.classList.add('visible');
+      }
+    };
+
+    questions.forEach(question => {
+      question.querySelectorAll('input[type="radio"]').forEach(input => {
+        input.addEventListener('change', updateResult);
+      });
+    });
+
+    const resetButton = panel.querySelector('.quiz-reset-btn');
+    if (resetButton) {
+      resetButton.addEventListener('click', () => resetQuiz(panel));
+    }
+
+    resetQuiz(panel);
+  });
 
   // 7. Registro de Service Worker para soporte PWA
   if ('serviceWorker' in navigator) {
