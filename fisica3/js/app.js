@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Limpiar clases activas y de posición
     allPages.forEach(p => {
-      p.classList.remove('active', 'page-left', 'page-right');
+      p.classList.remove('active', 'page-left', 'page-right', 'page-enter');
     });
 
     const activeElements = [];
@@ -385,10 +385,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (leftPage) {
         leftPage.classList.add('active', 'page-left');
+        leftPage.offsetWidth;
+        leftPage.classList.add('page-enter');
         activeElements.push(leftPage);
       }
       if (rightPage) {
         rightPage.classList.add('active', 'page-right');
+        rightPage.offsetWidth;
+        rightPage.classList.add('page-enter');
         activeElements.push(rightPage);
       }
 
@@ -410,12 +414,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderSinglePage(pageIndex) {
     if (pageIndex < 0) pageIndex = 0;
     if (pageIndex > TOTAL_CONTENT_PAGES) pageIndex = TOTAL_CONTENT_PAGES;
-    const turnDirection = pageIndex > currentPage ? 'next' : pageIndex < currentPage ? 'prev' : null;
     currentPage = pageIndex;
     currentSpread = currentPage === 0 ? 0 : Math.ceil(currentPage / 2);
 
     allPages.forEach(p => {
-      p.classList.remove('active', 'page-left', 'page-right');
+      p.classList.remove('active', 'page-left', 'page-right', 'page-enter');
     });
 
     if (notebookStage) {
@@ -431,10 +434,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeEl = currentPage === 0 ? pageCover : contentPages[currentPage - 1];
     if (activeEl) {
       activeEl.classList.add('active');
-      if (turnDirection) {
-        notebookStage?.classList.add(`turn-${turnDirection}`);
-        activeEl.classList.add(`page-turn-${turnDirection}`);
-      }
+      activeEl.offsetWidth;
+      activeEl.classList.add('page-enter');
     }
 
     if (btnPrev) btnPrev.disabled = currentPage === 0;

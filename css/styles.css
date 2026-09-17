@@ -261,6 +261,9 @@ body {
 .notebook-page.active {
   display: flex;
   flex-direction: column;
+}
+
+.notebook-page.page-enter {
   animation: pageCrossFadeMove 0.9s ease-in-out both;
 }
 
