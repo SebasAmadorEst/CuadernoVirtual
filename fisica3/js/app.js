@@ -922,10 +922,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const resetQuiz = (panel) => {
     if (!panel) return;
+    const questions = panel.querySelectorAll('.quiz-question');
     panel.querySelectorAll('input[type="radio"]').forEach(input => {
       input.checked = false;
     });
-    panel.querySelectorAll('.quiz-question').forEach(question => {
+    questions.forEach(question => {
       question.classList.remove('is-correct', 'is-wrong');
       const feedback = question.querySelector('.quiz-feedback');
       if (feedback) feedback.textContent = '';
@@ -933,55 +934,86 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const resultBox = panel.querySelector('.quiz-result');
     if (resultBox) {
-      resultBox.textContent = 'Resultado: 0/5 correctas. Intenta otra vez.';
+      resultBox.textContent = '';
       resultBox.classList.remove('visible');
     }
   };
 
   quizPanels.forEach(panel => {
     const questions = panel.querySelectorAll('.quiz-question');
+    const resultBox = panel.querySelector('.quiz-result');
+    const validateButton = panel.querySelector('.quiz-validate-btn');
+    let isValidated = false;
 
-    const updateResult = () => {
+    const clearFeedback = () => {
+      questions.forEach(question => {
+        question.classList.remove('is-correct', 'is-wrong');
+        const feedback = question.querySelector('.quiz-feedback');
+        if (feedback) feedback.textContent = '';
+      });
+      if (resultBox) resultBox.classList.remove('visible');
+    };
+
+    const validateAnswers = () => {
+      const unanswered = Array.from(questions).some(question => (
+        !question.querySelector('input[type="radio"]:checked')
+      ));
+
+      if (unanswered) {
+        clearFeedback();
+        isValidated = false;
+        if (resultBox) {
+          resultBox.textContent = 'Selecciona una opción en cada pregunta antes de validar.';
+          resultBox.classList.add('visible');
+        }
+        return;
+      }
+
       let correct = 0;
       questions.forEach(question => {
         const answer = question.dataset.answer;
         const selected = question.querySelector('input[type="radio"]:checked');
         const feedback = question.querySelector('.quiz-feedback');
-        if (!selected) {
-          question.classList.remove('is-correct', 'is-wrong');
-          if (feedback) feedback.textContent = '';
-          return;
-        }
-
         const isCorrect = selected.value === answer;
         question.classList.toggle('is-correct', isCorrect);
         question.classList.toggle('is-wrong', !isCorrect);
 
         if (feedback) {
           feedback.textContent = isCorrect
-            ? '✅ Correcto.'
-            : `❌ Incorrecto. La respuesta correcta es ${answer.toUpperCase()}.`;
+            ? 'Correcto.'
+            : `Incorrecto. Respuesta correcta: ${question.dataset.answerText || answer.toUpperCase()}`;
         }
 
         if (isCorrect) correct += 1;
       });
 
-      const resultBox = panel.querySelector('.quiz-result');
       if (resultBox) {
-        resultBox.textContent = `Resultado: ${correct}/5 correctas.`;
+        resultBox.textContent = `Resultado: ${correct}/${questions.length} correctas.`;
         resultBox.classList.add('visible');
       }
+      isValidated = true;
     };
 
     questions.forEach(question => {
       question.querySelectorAll('input[type="radio"]').forEach(input => {
-        input.addEventListener('change', updateResult);
+        input.addEventListener('change', () => {
+          if (!isValidated && !resultBox?.classList.contains('visible')) return;
+          isValidated = false;
+          clearFeedback();
+        });
       });
     });
 
+    if (validateButton) {
+      validateButton.addEventListener('click', validateAnswers);
+    }
+
     const resetButton = panel.querySelector('.quiz-reset-btn');
     if (resetButton) {
-      resetButton.addEventListener('click', () => resetQuiz(panel));
+      resetButton.addEventListener('click', () => {
+        isValidated = false;
+        resetQuiz(panel);
+      });
     }
 
     resetQuiz(panel);

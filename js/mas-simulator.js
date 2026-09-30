@@ -25,7 +25,12 @@ class MASSimulator {
       phi: 0.0,      // Fase inicial [rad]
       time: 0.0,     // Tiempo acumulado [s]
       speedScale: 1.0, // Factor de velocidad de simulación
-      isPlaying: true
+      isPlaying: true,
+      vectorStyles: {
+        x: { color: '#0284c7', width: 2.2, opacity: 1, dash: [] },
+        v: { color: '#10b981', width: 2.2, opacity: 1, dash: [] },
+        a: { color: '#ef4444', width: 2.2, opacity: 1, dash: [] }
+      }
     };
 
     // Parámetros derivados
@@ -132,9 +137,12 @@ class MASSimulator {
     const centerY = this.height / 2 + 10;
     const wallX = 60;
     const equilibriumX = this.width / 2;
-    const pixelsPerMeter = 100; // Escala visual del desplazamiento
     const massWidth = 55;
     const massHeight = 55;
+    const pixelsPerMeter = Math.min(
+      100,
+      Math.max(8, (this.width / 2 - wallX - massWidth / 2 - 10) / Math.max(A, 0.1))
+    );
 
     const massX = equilibriumX + x * pixelsPerMeter;
 
@@ -214,7 +222,7 @@ class MASSimulator {
     this.drawVector(
       ctx, equilibriumX, centerY + 38,
       massX, centerY + 38,
-      '#0284c7', `x = ${x.toFixed(2)} m`
+      this.params.vectorStyles.x.color, `x = ${x.toFixed(2)} m`, this.params.vectorStyles.x
     );
 
     // Vector Velocidad v (Verde desde la masa en dirección del movimiento)
@@ -223,7 +231,7 @@ class MASSimulator {
       this.drawVector(
         ctx, massX, centerY - 38,
         massX + v * vScale, centerY - 38,
-        '#10b981', `v = ${v.toFixed(2)} m/s`
+        this.params.vectorStyles.v.color, `v = ${v.toFixed(2)} m/s`, this.params.vectorStyles.v
       );
     }
 
@@ -233,7 +241,7 @@ class MASSimulator {
       this.drawVector(
         ctx, massX, centerY - 54,
         massX + a * aScale, centerY - 54,
-        '#ef4444', `a = ${a.toFixed(2)} m/s²`
+        this.params.vectorStyles.a.color, `a = ${a.toFixed(2)} m/s²`, this.params.vectorStyles.a
       );
     }
   }
@@ -269,13 +277,15 @@ class MASSimulator {
     ctx.stroke();
   }
 
-  drawVector(ctx, x1, y1, x2, y2, color, label) {
+  drawVector(ctx, x1, y1, x2, y2, color, label, style = {}) {
     const dx = x2 - x1;
     if (Math.abs(dx) < 4) return;
 
     ctx.strokeStyle = color;
     ctx.fillStyle = color;
-    ctx.lineWidth = 2.2;
+    ctx.globalAlpha = style.opacity ?? 1;
+    ctx.lineWidth = style.width ?? 2.2;
+    ctx.setLineDash(style.dash ?? []);
 
     // Cuerpo de la flecha
     ctx.beginPath();
@@ -292,11 +302,13 @@ class MASSimulator {
     ctx.lineTo(x2 - dir * headLength, y2 + 4);
     ctx.closePath();
     ctx.fill();
+    ctx.setLineDash([]);
 
     // Etiqueta
     ctx.font = 'bold 11px Fira Code, monospace';
     ctx.textAlign = 'center';
     ctx.fillText(label, (x1 + x2) / 2, y1 - 6);
+    ctx.globalAlpha = 1;
   }
 
   updateEnergyBars(kinetic, potential, total) {

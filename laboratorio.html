@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f3f6f2">
+  <meta name="description" content="Laboratorio interactivo para explorar el movimiento armónico simple y sus gráficas.">
+  <title>Laboratorio M.A.S. | Física III</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/laboratorio.css">
+</head>
+<body>
+  <header class="lab-nav">
+    <a class="lab-brand" href="index.html" aria-label="Volver al cuaderno de Física III">
+      <span class="brand-mark"><i class="fas fa-atom"></i></span>
+      <span>Física III <small>LABORATORIO</small></span>
+    </a>
+    <div class="nav-meta"><span class="live-dot"></span> MODELO IDEAL · SIN ROZAMIENTO</div>
+    <a class="return-link" href="index.html"><i class="fas fa-arrow-left"></i><span>Volver al cuaderno</span></a>
+  </header>
+
+  <main class="lab-layout">
+    <section class="lab-heading" aria-labelledby="pageTitle">
+      <div>
+        <p class="eyebrow">LAB 01 <span>/</span> CINEMÁTICA OSCILATORIA</p>
+        <h1 id="pageTitle">Movimiento armónico <em>simple</em></h1>
+        <p class="intro">Ajusta el oscilador y observa cómo cambian su trayectoria y sus magnitudes.</p>
+      </div>
+      <div class="status-readout"><span>FRECUENCIA ANGULAR</span><strong id="readoutOmega">2.00 <small>rad/s</small></strong></div>
+    </section>
+
+    <div class="workspace">
+      <section class="visual-column" aria-label="Simulación y gráficas">
+        <section class="instrument-panel motion-panel">
+          <div class="panel-heading">
+            <div><span class="section-index">01</span><h2>Oscilador masa-resorte</h2></div>
+            <span class="panel-note">m = 1.00 kg</span>
+          </div>
+          <canvas id="masCanvas" class="spring-canvas" aria-label="Animación del sistema masa-resorte"></canvas>
+          <div class="motion-footer">
+            <div class="motion-values">
+              <span><i class="value-dot dot-x"></i><b>x</b><output id="currentX">0.00 m</output></span>
+              <span><i class="value-dot dot-v"></i><b>v</b><output id="currentV">0.00 m/s</output></span>
+              <span><i class="value-dot dot-a"></i><b>a</b><output id="currentA">0.00 m/s²</output></span>
+            </div>
+            <div class="transport-controls">
+              <button id="playToggle" class="icon-action primary-action" type="button" aria-label="Pausar simulación" title="Pausar simulación"><i class="fas fa-pause"></i></button>
+              <button id="resetTime" class="icon-action" type="button" aria-label="Reiniciar tiempo" title="Reiniciar tiempo"><i class="fas fa-rotate-left"></i></button>
+              <span class="time-readout">t <output id="currentTime">0.00 s</output></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="instrument-panel graph-panel">
+          <div class="panel-heading graph-heading">
+            <div><span class="section-index">02</span><h2>Funciones en el tiempo</h2></div>
+            <div class="curve-legend" aria-label="Curvas visibles">
+              <span><i class="value-dot dot-x"></i>x(t)</span><span><i class="value-dot dot-v"></i>v(t)</span><span><i class="value-dot dot-a"></i>a(t)</span>
+            </div>
+          </div>
+          <div class="plot-wrap">
+            <div class="plot-toolbar" aria-label="Herramientas de gráfica">
+              <button id="toolZoomIn" class="plot-tool" type="button" title="Acercar" aria-label="Acercar"><i class="fas fa-plus"></i></button>
+              <button id="toolZoomOut" class="plot-tool" type="button" title="Alejar" aria-label="Alejar"><i class="fas fa-minus"></i></button>
+              <span class="toolbar-divider"></span>
+              <button id="toolPan" class="plot-tool active" type="button" title="Arrastrar plano" aria-label="Arrastrar plano"><i class="fas fa-hand"></i></button>
+              <button id="toolInspect" class="plot-tool" type="button" title="Inspeccionar coordenadas" aria-label="Inspeccionar coordenadas"><i class="fas fa-crosshairs"></i></button>
+              <button id="toolReset" class="plot-tool" type="button" title="Restablecer vista" aria-label="Restablecer vista"><i class="fas fa-expand-arrows-alt"></i></button>
+              <span class="toolbar-divider"></span>
+              <button id="toolPalette" class="plot-tool" type="button" title="Estilo de curvas" aria-label="Abrir estilos de curvas"><i class="fas fa-palette"></i></button>
+            </div>
+            <div id="paletteModal" class="style-popover" aria-label="Estilo de curvas">
+              <div class="popover-heading"><strong>Estilo de curvas</strong><button id="closePalette" class="close-popover" type="button" aria-label="Cerrar estilos"><i class="fas fa-xmark"></i></button></div>
+              <div class="curve-style-row" data-curve="x"><label><input id="showX" type="checkbox" checked><span class="curve-name">x(t)</span></label><input id="colorX" type="color" value="#1677a8" aria-label="Color de elongación"><input id="widthX" type="range" min="1" max="5" step="0.5" value="2.5" aria-label="Grosor de elongación"><input id="opacityX" type="range" min="0.2" max="1" step="0.1" value="1" aria-label="Opacidad de elongación"><select id="dashX" aria-label="Trazo de elongación"><option value="solid">Sólida</option><option value="dashed">Guiones</option><option value="dotted">Puntos</option></select></div>
+              <div class="curve-style-row" data-curve="v"><label><input id="showV" type="checkbox" checked><span class="curve-name">v(t)</span></label><input id="colorV" type="color" value="#168b68" aria-label="Color de velocidad"><input id="widthV" type="range" min="1" max="5" step="0.5" value="2.5" aria-label="Grosor de velocidad"><input id="opacityV" type="range" min="0.2" max="1" step="0.1" value="1" aria-label="Opacidad de velocidad"><select id="dashV" aria-label="Trazo de velocidad"><option value="solid">Sólida</option><option value="dashed" selected>Guiones</option><option value="dotted">Puntos</option></select></div>
+              <div class="curve-style-row" data-curve="a"><label><input id="showA" type="checkbox" checked><span class="curve-name">a(t)</span></label><input id="colorA" type="color" value="#d45743" aria-label="Color de aceleración"><input id="widthA" type="range" min="1" max="5" step="0.5" value="2" aria-label="Grosor de aceleración"><input id="opacityA" type="range" min="0.2" max="1" step="0.1" value="1" aria-label="Opacidad de aceleración"><select id="dashA" aria-label="Trazo de aceleración"><option value="solid">Sólida</option><option value="dashed">Guiones</option><option value="dotted" selected>Puntos</option></select></div>
+              <h3 class="vector-style-heading">Vectores del oscilador</h3>
+              <div class="vector-style-row"><span>x</span><input id="vectorColorX" type="color" value="#0284c7" aria-label="Color del vector de elongación"><input id="vectorWidthX" type="range" min="1" max="5" step="0.5" value="2.2" aria-label="Grosor del vector de elongación"><input id="vectorOpacityX" type="range" min="0.2" max="1" step="0.1" value="1" aria-label="Opacidad del vector de elongación"><select id="vectorDashX" aria-label="Trazo del vector de elongación"><option value="solid">Sólida</option><option value="dashed">Guiones</option><option value="dotted">Puntos</option></select></div>
+              <div class="vector-style-row"><span>v</span><input id="vectorColorV" type="color" value="#10b981" aria-label="Color del vector de velocidad"><input id="vectorWidthV" type="range" min="1" max="5" step="0.5" value="2.2" aria-label="Grosor del vector de velocidad"><input id="vectorOpacityV" type="range" min="0.2" max="1" step="0.1" value="1" aria-label="Opacidad del vector de velocidad"><select id="vectorDashV" aria-label="Trazo del vector de velocidad"><option value="solid">Sólida</option><option value="dashed">Guiones</option><option value="dotted">Puntos</option></select></div>
+              <div class="vector-style-row"><span>a</span><input id="vectorColorA" type="color" value="#ef4444" aria-label="Color del vector de aceleración"><input id="vectorWidthA" type="range" min="1" max="5" step="0.5" value="2.2" aria-label="Grosor del vector de aceleración"><input id="vectorOpacityA" type="range" min="0.2" max="1" step="0.1" value="1" aria-label="Opacidad del vector de aceleración"><select id="vectorDashA" aria-label="Trazo del vector de aceleración"><option value="solid">Sólida</option><option value="dashed">Guiones</option><option value="dotted">Puntos</option></select></div>
+              <p class="popover-hint">Color · grosor · opacidad · trazo</p>
+            </div>
+            <div id="geoTooltip" class="plot-tooltip"></div>
+            <canvas id="geoCanvas" class="plot-canvas" aria-label="Gráfica interactiva de elongación, velocidad y aceleración en función del tiempo"></canvas>
+          </div>
+          <div class="graph-caption"><span><i class="fas fa-arrows-alt"></i> Arrastra para desplazar · rueda para zoom · arrastra los ejes para cambiar su escala</span><span>t [s] <b>×</b> magnitudes cinemáticas</span></div>
+        </section>
+
+        <section class="relations-grid" aria-label="Relaciones entre posición, velocidad y aceleración">
+          <article class="relation-panel">
+            <div class="relation-title"><span class="section-index">03A</span><div><h2>Velocidad vs. posición</h2><code>v(x) = ±ω √(A² − x²)</code></div>
+              <div class="relation-tools" aria-label="Herramientas de velocidad respecto a posición">
+                <button id="velocityZoomIn" type="button" title="Acercar" aria-label="Acercar gráfica de velocidad"><i class="fas fa-plus"></i></button>
+                <button id="velocityZoomOut" type="button" title="Alejar" aria-label="Alejar gráfica de velocidad"><i class="fas fa-minus"></i></button>
+                <button id="velocityReset" type="button" title="Restablecer vista" aria-label="Restablecer gráfica de velocidad"><i class="fas fa-rotate-left"></i></button>
+              </div>
+            </div>
+            <canvas id="velocityPositionCanvas" class="relation-canvas" aria-label="Gráfica interactiva de velocidad según posición; arrastra para desplazar y usa la rueda para acercar"></canvas>
+            <div class="relation-footer"><output id="velocityPositionReadout">Mueve el cursor para inspeccionar</output><span>Arrastrar · rueda para zoom</span></div>
+          </article>
+          <article class="relation-panel">
+            <div class="relation-title"><span class="section-index">03B</span><div><h2>Aceleración vs. posición</h2><code>a(x) = −ω²x</code></div>
+              <div class="relation-tools" aria-label="Herramientas de aceleración respecto a posición">
+                <button id="accelerationZoomIn" type="button" title="Acercar" aria-label="Acercar gráfica de aceleración"><i class="fas fa-plus"></i></button>
+                <button id="accelerationZoomOut" type="button" title="Alejar" aria-label="Alejar gráfica de aceleración"><i class="fas fa-minus"></i></button>
+                <button id="accelerationReset" type="button" title="Restablecer vista" aria-label="Restablecer gráfica de aceleración"><i class="fas fa-rotate-left"></i></button>
+              </div>
+            </div>
+            <canvas id="accelerationPositionCanvas" class="relation-canvas" aria-label="Gráfica interactiva de aceleración según posición; arrastra para desplazar y usa la rueda para acercar"></canvas>
+            <div class="relation-footer"><output id="accelerationPositionReadout">Mueve el cursor para inspeccionar</output><span>Arrastrar · rueda para zoom</span></div>
+          </article>
+        </section>
+      </section>
+
+      <aside class="control-panel" aria-label="Parámetros del oscilador">
+        <div class="control-head"><div><p class="eyebrow">PARÁMETROS DEL MODELO</p><h2>Condiciones iniciales</h2></div><span class="tune-mark"><i class="fas fa-sliders"></i></span></div>
+        <div class="parameter-list">
+          <div class="parameter" data-param="amplitude">
+            <div class="parameter-label"><label for="amplitudeNumber">Amplitud <i>A</i></label><span class="unit">m</span></div>
+            <div class="parameter-inputs"><input id="amplitudeRange" type="range" min="0.1" max="3" step="0.01" value="1.2" aria-label="Amplitud"><input id="amplitudeNumber" class="number-input" type="number" min="0.1" max="3" step="0.01" value="1.20"></div>
+          </div>
+          <div class="parameter" data-param="omega">
+            <div class="parameter-label"><label for="omegaNumber">Frecuencia angular <i>ω</i></label><span class="unit">rad/s</span></div>
+            <div class="parameter-inputs"><input id="omegaRange" type="range" min="0.5" max="8" step="0.01" value="2" aria-label="Frecuencia angular"><input id="omegaNumber" class="number-input" type="number" min="0.5" max="8" step="0.01" value="2.00"></div>
+          </div>
+          <div class="parameter" data-param="frequency">
+            <div class="parameter-label"><label for="frequencyNumber">Frecuencia <i>f</i></label><span class="unit">Hz</span></div>
+            <div class="parameter-inputs"><input id="frequencyRange" type="range" min="0.0796" max="1.2732" step="any" value="0.3183" aria-label="Frecuencia"><input id="frequencyNumber" class="number-input" type="number" min="0.0796" max="1.2732" step="0.001" value="0.3183"></div>
+          </div>
+          <div class="parameter" data-param="period">
+            <div class="parameter-label"><label for="periodNumber">Período <i>T</i></label><span class="unit">s</span></div>
+            <div class="parameter-inputs"><input id="periodRange" type="range" min="0.7854" max="12.5664" step="any" value="3.1416" aria-label="Período"><input id="periodNumber" class="number-input" type="number" min="0.7854" max="12.5664" step="0.01" value="3.14"></div>
+          </div>
+          <div class="parameter phase-parameter" data-param="phase">
+            <div class="parameter-label"><label for="phaseNumber">Fase inicial <i>α</i></label><span class="unit">rad</span></div>
+            <div class="parameter-inputs"><input id="phaseRange" type="range" min="-3.14" max="3.14" step="0.01" value="0" aria-label="Fase inicial"><input id="phaseNumber" class="number-input" type="number" min="-3.14" max="3.14" step="0.01" value="0.00"></div>
+          </div>
+        </div>
+
+        <div class="equation-block"><span class="equation-label">MODELO CINEMÁTICO</span><p>x(t) = A sin(ωt + α)</p><p>v(t) = Aω cos(ωt + α)</p><p>a(t) = −Aω² sin(ωt + α)</p></div>
+
+        <div class="derived-values">
+          <div><span>Velocidad máxima</span><strong id="maxVelocity">2.40 <small>m/s</small></strong></div>
+          <div><span>Aceleración máxima</span><strong id="maxAcceleration">4.80 <small>m/s²</small></strong></div>
+          <div><span>Energía mecánica</span><strong id="totalEnergy">2.88 <small>J</small></strong></div>
+        </div>
+        <div class="energy-strip" aria-label="Distribución de energía"><span id="kineticEnergyFill"></span><span id="potentialEnergyFill"></span></div>
+        <p class="energy-note"><span><i class="value-dot dot-v"></i> cinética</span><span><i class="value-dot dot-x"></i> potencial</span><span>energía conservada</span></p>
+        <button id="resetParameters" class="reset-parameters" type="button"><i class="fas fa-arrow-rotate-left"></i> Restaurar valores iniciales</button>
+      </aside>
+    </div>
+    <footer class="lab-footer"><span>FÍSICA III <i>/</i> MOVIMIENTO ARMÓNICO SIMPLE</span><span>ω = 2πf = 2π/T</span></footer>
+  </main>
+
+  <script src="js/geogebra-plane.js"></script>
+  <script src="js/mas-simulator.js"></script>
+  <script src="js/laboratorio.js"></script>
+</body>
+</html>

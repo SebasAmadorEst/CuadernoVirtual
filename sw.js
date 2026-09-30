@@ -2,9 +2,12 @@ const CACHE_NAME = 'fisica3-mas-v1';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
+  './laboratorio.html',
   './css/styles.css',
+  './css/laboratorio.css',
   './js/geogebra-plane.js',
   './js/mas-simulator.js',
+  './js/laboratorio.js',
   './js/math-engine.js',
   './js/app.js',
   './imagenes/portada.webp',
